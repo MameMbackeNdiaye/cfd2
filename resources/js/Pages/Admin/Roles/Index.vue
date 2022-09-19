@@ -43,11 +43,18 @@ export default {
                 this.openModal();
             },
             update: function(data) {
-                data._method = 'PUT';
+                data._method = 'PATCH';
                 this.$inertia.post('/admin/roles/edit/'+ data.id, data)
                 this.reset();
                 this.closeModal();
             },
+            deleteRow(data) {
+            if (!confirm('Voulez-vous supprimer ce role?')) return;
+            data._method = 'DELETE';
+            this.$inertia.post('/admin/roles/delete/'+ data.id, data)
+            this.reset();
+            this.closeModal();  
+        },
         },
 }
 </script>
@@ -89,6 +96,7 @@ export default {
                       <td class="align-middle">
                         <i class="ni ni-settings text-accent text-sm opacity-8"></i>
                           <button class=" ml-6 text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user" @click="edit(row)" type="button">Edit</button> 
+                          <button class=" ml-6 text-danger font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Delete user" @click="deleteRow(row)" type="button">Supprimer</button> 
                       </td>
                     </tr>
                   </tbody>

@@ -89,7 +89,7 @@ class RoleController extends Controller
         Validator::make($request->all(), [
             'nom' => ['required'],
         ])->validate();
-  
+
         if ($request->has('id')) {
             Role::find($request->input('id'))->update($request->all());
             return redirect()->back()
@@ -102,8 +102,12 @@ class RoleController extends Controller
      * @param  \App\Models\Roles  $roles
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Role $roles)
+    public function destroy(Request $request): \Illuminate\Http\RedirectResponse
     {
-        //
+        Role::destroy($request->id);
+
+        return redirect()->back()
+            ->with('message', 'Role deleted successfully.');
     }
 }
+

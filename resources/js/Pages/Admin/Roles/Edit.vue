@@ -1,11 +1,12 @@
 <script>
 import Argon from '@/Layouts/Argon.vue';
 import FooterDashboard from '@/Layouts/FooterDashboard.vue';
-import AppHeader from "../../Partials/AppHeader";
 import {inject, reactive} from "vue";
 import {Inertia} from "@inertiajs/inertia";
 import ErrorsAndMessages from "../../Partials/ErrorsAndMessages";
 import {usePage} from "@inertiajs/inertia-vue3";
+import { Head, Link, useForm } from '@inertiajs/inertia-vue3';
+
 
 export default {
     name: "Edit",
@@ -13,7 +14,10 @@ export default {
         ErrorsAndMessages,
         AppHeader,
         Argon,
-        FooterDashboard
+        FooterDashboard,
+        useForm,
+        Link,
+        Head
 
     },
   props:['roles','data',
@@ -66,7 +70,11 @@ export default {
                     <label for="title">Nom</label>
                     <input type="text" class="form-control" name="title" id="title" v-model="form.nom" />
                 </div>
-                <input type="submit" class="btn btn-primary btn-block" value="Update" />
+                <div className="mt-4">
+                    <button type="submit" className="px-6 py-2 font-bold text-white bg-green-500 rounded">
+                     Mettre a joutr
+                    </button>
+                </div>            
             </form>
         </div>
     </div>

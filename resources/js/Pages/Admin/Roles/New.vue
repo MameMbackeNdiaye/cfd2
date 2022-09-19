@@ -1,14 +1,19 @@
 <script>
 import Argon from '@/Layouts/Argon.vue';
 import FooterDashboard from '@/Layouts/FooterDashboard.vue';
+import { Head, Link, useForm } from '@inertiajs/inertia-vue3';
+
 
 export default {
   components: {
       Argon,
-      FooterDashboard
+      FooterDashboard,
+      Link
   },
   props:['roles','data', 'errors','users'],
+  
 }
+
 </script>
 <template>
 <Argon></Argon>
@@ -46,9 +51,13 @@ export default {
                       </td>
                       <td class="align-middle">
                         <i class="ni ni-settings text-accent text-sm opacity-8"></i>
-                        <a href="" class=" ml-6 text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
-                          <button type="button">Edit</button> 
-                        </a>
+                        <Link
+                                            tabIndex="1"
+                                            className="px-4 py-2 text-sm text-white bg-blue-500 rounded"
+                                            :href="route('admin.roles.edit', role.id)"
+                                        >
+                                            Edit
+                        </Link>                          
                       </td>
                     </tr>
                   </tbody>

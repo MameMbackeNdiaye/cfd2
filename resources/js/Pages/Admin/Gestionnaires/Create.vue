@@ -12,13 +12,23 @@ import TextInput from '@/Components/TextInput.vue';
 
   components: {
       Argon,
-      FooterDashboard
+      FooterDashboard,
+      AuthenticationCardLogo,
+      AuthenticationCard,
+      InputError,
+      InputLabel,
+      TextInput
   }
-  props:['roles','data', 'errors','users']
+  props:['data', 'errors']
+defineProps({
+    roles: Object,
+    users: Object,
+});
 
 const form = useForm({
     name: '',
     email: '',
+    role_id: '',
     password: '',
     is_admin: '1',
     status: '1',
@@ -28,7 +38,7 @@ const form = useForm({
 
 const submit = () => {
     form.post(route('admin.gestionnaires.store'), {
-        onFinish: () => form.reset('password', 'password_confirmation'),
+        onFinish: () => form.reset('name','email','password', 'password_confirmation'),
     });
 };
 
@@ -56,6 +66,13 @@ const submit = () => {
             </div>
 
             <div class="mt-4">
+                <InputLabel for="role_id" value="Role" />
+                <select name="role_id" id="role_id"  v-model="form.role_id" class="mt-1 block w-full rounded-md border-slate-300 shadow-sm" required autocomplete="role_id">
+                    <option value="" selected>Selection un role</option>
+=                    <option :value="role.id" v-for="(role,index) in roles" :key="index">{{role.nom}}</option>
+                </select>
+            </div>
+            <div class="mt-4">
                 <InputLabel for="email" value="Email" />
                 <TextInput
                     id="email"
@@ -65,6 +82,7 @@ const submit = () => {
                     required
                 />
             </div>
+
 
             <div class="mt-4">
                 <InputLabel for="password" value="Password" />

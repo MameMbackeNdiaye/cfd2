@@ -49,6 +49,7 @@ class GestionnaireController extends Controller
         Validator::make($request->all(), [
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'role_id' => ['required'],
             'password' => [ 'required', 'string', new Password, 'confirmed'],
             'terms' => Jetstream::hasTermsAndPrivacyPolicyFeature() ? ['accepted', 'required'] : '',
         ])->validate();
@@ -56,6 +57,7 @@ class GestionnaireController extends Controller
         return User::create([
             'name' => $request['name'],
             'email' => $request['email'],
+            'role_id' => $request['role_id'],
             'is_admin' => $request[value('is_admin', 1)],
             'password' => Hash::make($request['password'])
         ]);
